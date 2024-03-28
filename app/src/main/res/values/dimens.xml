@@ -3,4 +3,8 @@
     <dimen name="loading_image_size">200dp</dimen>
 
     <dimen name="normal_padding">16dp</dimen>
+
+    <dimen name="card_elevation">8dp</dimen>
+
+    <dimen name="list_column_width">256dp</dimen>
 </resources>
