@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Bookshelf</string>
+
+    <string name="error_content_description">Connection error</string>
+    <string name="loading_content_description">Loading data from network</string>
+    <string name="connection_alert">Failed to load: the internet connection is absent or is not working properly.</string>
+    <string name="retry_button">Retry</string>
 </resources>
