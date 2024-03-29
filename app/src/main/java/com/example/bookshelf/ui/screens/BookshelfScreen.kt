@@ -25,10 +25,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookshelf.R
 import com.example.bookshelf.model.BookshelfItem
+import com.example.bookshelf.ui.theme.BookshelfTheme
 
 @Composable
 fun BookshelfLoadingScreen(modifier: Modifier = Modifier) {
@@ -72,7 +74,14 @@ fun BookshelfSuccessScreen(
     bookshelfItems: List<BookshelfItem>,
     modifier: Modifier = Modifier
 ) {
-    LazyVerticalGrid(columns = GridCells.Adaptive(dimensionResource(R.dimen.list_column_width))) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(dimensionResource(R.dimen.list_column_width)),
+        horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.small_padding)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.small_padding)),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(dimensionResource(R.dimen.small_padding))
+    ) {
         items(bookshelfItems) {
             BookshelfListItem(
                 bookshelfItem = it,
@@ -104,3 +113,47 @@ fun BookshelfListItem(
     }
 }
 
+
+@Preview(showBackground = true)
+@Composable
+fun BookshelfLoadingScreenPreview() {
+    BookshelfTheme {
+        BookshelfLoadingScreen(modifier = Modifier.fillMaxSize())
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BookshelfErrorScreenPreview() {
+    BookshelfTheme {
+        BookshelfErrorScreen(modifier = Modifier.fillMaxSize())
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BookshelfSuccessScreenPreview() {
+    BookshelfTheme {
+        BookshelfSuccessScreen(
+            bookshelfItems = listOf(
+                BookshelfItem(
+                    title = "La storia del jazz",
+                    image = "https://books.google.com/books/content?id=cO8CEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                ),
+                BookshelfItem(
+                    title = "Chicago Jazz",
+                    image = "https://books.google.com/books/content?id=Z5Ot7ySoAMYC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                ),
+                BookshelfItem(
+                    title = "La storia del jazz",
+                    image = "https://books.google.com/books/content?id=cO8CEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                ),
+                BookshelfItem(
+                    title = "Chicago Jazz",
+                    image = "https://books.google.com/books/content?id=Z5Ot7ySoAMYC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+                )
+            ),
+            modifier = Modifier.fillMaxSize()
+        )
+    }
+}
