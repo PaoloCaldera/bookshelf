@@ -26,7 +26,7 @@ class BookshelfViewModel(private val repository: BookshelfRepository) : ViewMode
         getBookshelf()
     }
 
-    private fun getBookshelf() {
+    fun getBookshelf() {
         viewModelScope.launch {
             _uiState.update { it.copy(networkState = BookshelfNetworkState.Loading) }
 

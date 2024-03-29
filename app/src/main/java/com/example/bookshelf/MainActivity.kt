@@ -12,12 +12,19 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.bookshelf.data.network.BookshelfNetworkState
+import com.example.bookshelf.ui.screens.BookshelfErrorScreen
 import com.example.bookshelf.ui.screens.BookshelfLoadingScreen
+import com.example.bookshelf.ui.screens.BookshelfSuccessScreen
 import com.example.bookshelf.ui.theme.BookshelfTheme
+import com.example.bookshelf.ui.viewmodel.BookshelfViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +46,9 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookshelfApp(modifier: Modifier = Modifier) {
+    val viewModel: BookshelfViewModel = viewModel(factory = BookshelfViewModel.Factory)
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -52,7 +62,25 @@ fun BookshelfApp(modifier: Modifier = Modifier) {
             )
         }
     ) {
-        BookshelfLoadingScreen(modifier = modifier.padding(it))
+        when (uiState.networkState) {
+            is BookshelfNetworkState.Success -> {
+                BookshelfSuccessScreen(
+                    bookshelfItems = (uiState.networkState as BookshelfNetworkState.Success).items,
+                    modifier = modifier.padding(it)
+                )
+            }
+
+            is BookshelfNetworkState.Error -> {
+                BookshelfErrorScreen(
+                    onRetry = { viewModel.getBookshelf() },
+                    modifier = modifier.padding(it)
+                )
+            }
+
+            is BookshelfNetworkState.Loading -> {
+                BookshelfLoadingScreen(modifier = modifier.padding(it))
+            }
+        }
     }
 }
 
