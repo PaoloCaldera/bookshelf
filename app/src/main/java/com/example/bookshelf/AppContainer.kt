@@ -10,7 +10,7 @@ interface AppContainer {
     val booksService: BooksApi
 }
 
-class MainAppContainer() : AppContainer {
+object MainAppContainer : AppContainer {
     private val retrofit = Retrofit.Builder()
         .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .baseUrl("https://www.googleapis.com/books/v1")

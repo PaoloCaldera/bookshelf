@@ -42,7 +42,10 @@ fun BookshelfLoadingScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun BookshelfErrorScreen(modifier: Modifier = Modifier) {
+fun BookshelfErrorScreen(
+    onRetry: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -59,7 +62,7 @@ fun BookshelfErrorScreen(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodySmall
         )
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.normal_padding)))
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { onRetry() }) {
             Text(
                 text = stringResource(R.string.retry_button),
                 textAlign = TextAlign.Center,
@@ -126,7 +129,7 @@ fun BookshelfLoadingScreenPreview() {
 @Composable
 fun BookshelfErrorScreenPreview() {
     BookshelfTheme {
-        BookshelfErrorScreen(modifier = Modifier.fillMaxSize())
+        BookshelfErrorScreen(modifier = Modifier.fillMaxSize(), onRetry = {})
     }
 }
 

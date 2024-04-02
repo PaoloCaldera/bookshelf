@@ -21,7 +21,7 @@ class BookshelfNetworkRepository(private val booksService: BooksApi) : Bookshelf
 
         return BookshelfItem(
             title = volume.volumeInfo.title,
-            image = volume.volumeInfo.imageLinks.link
+            image = volume.volumeInfo.imageLinks.link.replace("http://", "https://")
         )
     }
 
