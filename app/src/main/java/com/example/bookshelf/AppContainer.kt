@@ -11,9 +11,11 @@ interface AppContainer {
 }
 
 object MainAppContainer : AppContainer {
+    private val jsonObject = Json { ignoreUnknownKeys = true }
+
     private val retrofit = Retrofit.Builder()
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
-        .baseUrl("https://www.googleapis.com/books/v1")
+        .addConverterFactory(jsonObject.asConverterFactory("application/json".toMediaType()))
+        .baseUrl("https://www.googleapis.com/books/v1/")
         .build()
 
     override val booksService: BooksApi by lazy {
