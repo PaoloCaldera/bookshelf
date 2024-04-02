@@ -62,23 +62,23 @@ fun BookshelfApp(modifier: Modifier = Modifier) {
             )
         }
     ) {
-        when (uiState.networkState) {
+        when (val networkState = uiState.networkState) {
             is BookshelfNetworkState.Success -> {
                 BookshelfSuccessScreen(
-                    bookshelfItems = (uiState.networkState as BookshelfNetworkState.Success).items,
-                    modifier = modifier.padding(it)
+                    bookshelfItems = networkState.items,
+                    modifier = modifier.fillMaxSize().padding(it)
                 )
             }
 
             is BookshelfNetworkState.Error -> {
                 BookshelfErrorScreen(
                     onRetry = { viewModel.getBookshelf() },
-                    modifier = modifier.padding(it)
+                    modifier = modifier.fillMaxSize().padding(it)
                 )
             }
 
             is BookshelfNetworkState.Loading -> {
-                BookshelfLoadingScreen(modifier = modifier.padding(it))
+                BookshelfLoadingScreen(modifier = modifier.fillMaxSize().padding(it))
             }
         }
     }
