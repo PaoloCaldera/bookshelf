@@ -36,6 +36,9 @@ class BookshelfViewModel(private val repository: BookshelfRepository) : ViewMode
                 repository.getVolumes().forEach {
                     bookshelfItemList.add(repository.getVolumeById(it))
                 }
+                _uiState.update {
+                    it.copy(networkState = BookshelfNetworkState.Success(bookshelfItemList))
+                }
             } catch (e: IOException) {
                 _uiState.update {
                     it.copy(networkState = BookshelfNetworkState.Error(e.message ?: "IO Exception"))
