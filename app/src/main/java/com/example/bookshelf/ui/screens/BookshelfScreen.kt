@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -26,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.bookshelf.R
@@ -82,13 +84,12 @@ fun BookshelfSuccessScreen(
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.small_padding)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.small_padding)),
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(dimensionResource(R.dimen.small_padding))
     ) {
         items(bookshelfItems) {
             BookshelfListItem(
-                bookshelfItem = it,
-                modifier = modifier
+                bookshelfItem = it
             )
         }
     }
@@ -111,7 +112,7 @@ fun BookshelfListItem(
             placeholder = painterResource(R.drawable.loading_img),
             error = painterResource(R.drawable.ic_broken_image),
             contentScale = ContentScale.Crop,
-            modifier = modifier.fillMaxSize()
+            modifier = modifier.height(256.dp)
         )
     }
 }
