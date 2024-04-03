@@ -26,4 +26,4 @@ Then, run the application on an Android device or emulator. The application is c
 
 ## License
 
-Bookshelf is a public project that can be downloaded and modified under the terms and conditions of the [MIT License]().
+Bookshelf is a public project that can be downloaded and modified under the terms and conditions of the [MIT License](LICENSE).
